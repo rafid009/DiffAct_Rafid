@@ -7,7 +7,7 @@ import torch.nn as nn
 from torch import optim
 import torch.nn.functional as F
 from scipy.ndimage import median_filter
-from torch.utils.tensorboard import SummaryWriter
+#from torch.utils.tensorboard import SummaryWriter
 from dataset import restore_full_sequence
 from dataset import get_data_dict
 from dataset import VideoFeatureDataset
@@ -71,7 +71,7 @@ class Trainer:
         if result_dir:
             if not os.path.exists(result_dir):
                 os.makedirs(result_dir)
-            logger = SummaryWriter(result_dir)
+            # logger = SummaryWriter(result_dir)
         
         for epoch in range(restore_epoch+1, num_epochs):
 
@@ -108,10 +108,10 @@ class Trainer:
                 for k,v in loss_dict.items():
                     total_loss += loss_weights[k] * v
 
-                if result_dir:
-                    for k,v in loss_dict.items():
-                        logger.add_scalar(f'Train-{k}', loss_weights[k] * v.item() / batch_size, step)
-                    logger.add_scalar('Train-Total', total_loss.item() / batch_size, step)
+                # if result_dir:
+                #     for k,v in loss_dict.items():
+                #         logger.add_scalar(f'Train-{k}', loss_weights[k] * v.item() / batch_size, step)
+                #     logger.add_scalar('Train-Total', total_loss.item() / batch_size, step)
 
                 total_loss /= batch_size
                 total_loss.backward()
@@ -152,8 +152,8 @@ class Trainer:
                         result_dir=result_dir, model_path=None)
 
                     if result_dir:
-                        for k,v in test_result_dict.items():
-                            logger.add_scalar(f'Test-{mode}-{k}', v, epoch)
+                        # for k,v in test_result_dict.items():
+                        #     logger.add_scalar(f'Test-{mode}-{k}', v, epoch)
 
                         np.save(os.path.join(result_dir, 
                             f'test_results_{mode}_epoch{epoch}.npy'), test_result_dict)
@@ -169,8 +169,8 @@ class Trainer:
                             result_dir=result_dir, model_path=None)
 
                         if result_dir:
-                            for k,v in train_result_dict.items():
-                                logger.add_scalar(f'Train-{mode}-{k}', v, epoch)
+                            # for k,v in train_result_dict.items():
+                            #     logger.add_scalar(f'Train-{mode}-{k}', v, epoch)
                                  
                             np.save(os.path.join(result_dir, 
                                 f'train_results_{mode}_epoch{epoch}.npy'), train_result_dict)
@@ -178,8 +178,8 @@ class Trainer:
                         for k,v in train_result_dict.items():
                             print(f'Epoch {epoch} - {mode}-Train-{k} {v}')
                         
-        if result_dir:
-            logger.close()
+        # if result_dir:
+        #     logger.close()
 
 
     def test_single_video(self, video_idx, test_dataset, mode, device, model_path=None):  
