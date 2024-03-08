@@ -385,9 +385,11 @@ if __name__ == '__main__':
     if not os.path.exists(result_dir):
         os.makedirs(result_dir)
 
-    trainer.train(train_train_dataset, train_test_dataset, test_test_dataset, 
-        loss_weights, class_weighting, soft_label,
-        num_epochs, batch_size, learning_rate, weight_decay,
-        label_dir=label_dir, result_dir=os.path.join(result_dir, naming), 
-        log_freq=log_freq, log_train_results=log_train_results
-    )
+    # trainer.train(train_train_dataset, train_test_dataset, test_test_dataset, 
+    #     loss_weights, class_weighting, soft_label,
+    #     num_epochs, batch_size, learning_rate, weight_decay,
+    #     label_dir=label_dir, result_dir=os.path.join(result_dir, naming), 
+    #     log_freq=log_freq, log_train_results=log_train_results
+    # )
+    model_path = "./trained_models/GTEA-Trained-S1/release.model"
+    trainer.test(test_test_dataset, mode="test", device='cuda', label_dir=label_dir, result_dir=result_dir, model_path=model_path)
