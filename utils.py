@@ -84,7 +84,7 @@ def get_labels_start_end_time(frame_wise_labels, bg_class=["background"]):
 def levenstein(p, y, norm=False):
     m_row = len(p)    
     n_col = len(y)
-    D = np.zeros([m_row+1, n_col+1], np.float)
+    D = np.zeros([m_row+1, n_col+1], np.float32)
     for i in range(m_row+1):
         D[i, 0] = i
     for i in range(n_col+1):
@@ -172,7 +172,7 @@ def func_eval(label_dir, pred_dir, video_list):
      
     acc = 100 * float(correct) / total
     edit = (1.0 * edit) / len(video_list)
-    f1s = np.array([0, 0 ,0], dtype=float)
+    f1s = np.array([0, 0 ,0], dtype=np.float32)
     for s in range(len(overlap)):
         precision = tp[s] / float(tp[s] + fp[s])
         recall = tp[s] / float(tp[s] + fn[s])
