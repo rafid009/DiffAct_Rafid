@@ -315,7 +315,7 @@ class Trainer:
             'F1@25': f1s[1],
             'F1@50': f1s[2]
         }
-        
+        print(result_dict)
         return result_dict
 
 
