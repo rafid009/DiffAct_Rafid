@@ -392,4 +392,4 @@ if __name__ == '__main__':
     #     log_freq=log_freq, log_train_results=log_train_results
     # )
     model_path = "./trained_models/GTEA-Trained-S1/release.model"
-    trainer.test(test_test_dataset, mode="test", device='cuda', label_dir=label_dir, result_dir=result_dir, model_path=model_path)
+    trainer.test(test_test_dataset, mode="encoder", device='cuda', label_dir=label_dir, result_dir=result_dir, model_path=model_path)
