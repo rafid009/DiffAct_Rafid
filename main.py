@@ -283,13 +283,12 @@ class Trainer:
         curr_action = -1
         print_pred = ''
         for p in pred:
-            print(f"p: {p}")
-            if curr_action == -1:
-                curr_action = p
-            elif curr_action != p:
-                print_pred += '\n'
-                curr_action = p
-            print_pred += f'{p} '
+            # if curr_action == -1:
+            #     curr_action = p
+            # elif curr_action != p:
+            #     print_pred += '\n'
+            #     curr_action = p
+            print_pred += f'{p}\n'
         return print_pred.strip()
             
 
