@@ -242,6 +242,7 @@ class Trainer:
                 output = smoothed_output / smoothed_output.sum(0, keepdims=True)
 
             output = np.argmax(output, 0)
+            print(f"output argmax: {output}")
 
             output = restore_full_sequence(output, 
                 full_len=label.shape[-1], 
@@ -252,6 +253,7 @@ class Trainer:
 
             if self.postprocess['type'] == 'mode': # after restoring full sequence
                 output = mode_filter(output, self.postprocess['value'])
+                print(f"output mode: {output}")
 
             if self.postprocess['type'] == 'purge':
 
@@ -269,6 +271,7 @@ class Trainer:
                             mid = starts[e] + duration // 2
                             output[starts[e]:mid] = trans[e-1]
                             output[mid:ends[e]] = trans[e+1]
+                    print(f"output: {e}")
 
             label = label.squeeze(0).cpu().numpy()
 
