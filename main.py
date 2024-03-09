@@ -321,8 +321,10 @@ class Trainer:
                 file_ptr.write(' '.join(pred))
                 file_ptr.close()
 
+                if not os.path.exists(os.path.join(result_dir, 'prediction_print')):
+                    os.makedirs(os.path.join(result_dir, 'prediction_print'))
                 print_pred = self.print_preds(pred)
-                file_name = os.path.join(result_dir, 'prediction', f'{video}_print.txt')
+                file_name = os.path.join(result_dir, 'prediction_print', f'{video}.txt')
                 file_ptr = open(file_name, 'w')
                 file_ptr.write('### Frame level recognition: ###\n')
                 file_ptr.write(print_pred)
