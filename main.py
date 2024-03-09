@@ -242,7 +242,7 @@ class Trainer:
                 output = smoothed_output / smoothed_output.sum(0, keepdims=True)
 
             output = np.argmax(output, 0)
-            print(f"output argmax: {output}")
+            # print(f"output argmax: {output}")
 
             output = restore_full_sequence(output, 
                 full_len=label.shape[-1], 
@@ -271,7 +271,7 @@ class Trainer:
                             mid = starts[e] + duration // 2
                             output[starts[e]:mid] = trans[e-1]
                             output[mid:ends[e]] = trans[e+1]
-                        print(f"output: {output}")
+                        # print(f"output: {output}")
 
             label = label.squeeze(0).cpu().numpy()
 
@@ -279,6 +279,18 @@ class Trainer:
             
             return video, output, label
 
+    def print_preds(self, pred):
+        curr_action = -1
+        print_pred = ''
+        for p in pred:
+            if curr_action == -1:
+                curr_action = p
+            elif curr_action != p:
+                print_pred += '\n'
+                curr_action = p
+            print_pred += f'{p} '
+        return print_pred.strip()
+            
 
     def test(self, test_dataset, mode, device, label_dir, result_dir=None, model_path=None):
         
@@ -305,7 +317,8 @@ class Trainer:
                 file_name = os.path.join(result_dir, 'prediction', f'{video}.txt')
                 file_ptr = open(file_name, 'w')
                 file_ptr.write('### Frame level recognition: ###\n')
-                file_ptr.write(' '.join(pred))
+                print_pred = self.print_preds(pred)
+                file_ptr.write(' '.join(print_pred))
                 file_ptr.close()
 
         acc, edit, f1s = func_eval(
