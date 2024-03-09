@@ -271,7 +271,7 @@ class Trainer:
                             mid = starts[e] + duration // 2
                             output[starts[e]:mid] = trans[e-1]
                             output[mid:ends[e]] = trans[e+1]
-                    print(f"output: {e}")
+                        print(f"output: {output}")
 
             label = label.squeeze(0).cpu().numpy()
 
