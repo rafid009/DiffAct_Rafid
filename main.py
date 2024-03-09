@@ -317,7 +317,13 @@ class Trainer:
                 file_name = os.path.join(result_dir, 'prediction', f'{video}.txt')
                 file_ptr = open(file_name, 'w')
                 file_ptr.write('### Frame level recognition: ###\n')
+                file_ptr.write(' '.join(pred))
+                file_ptr.close()
+
                 print_pred = self.print_preds(pred)
+                file_name = os.path.join(result_dir, 'prediction', f'{video}_print.txt')
+                file_ptr = open(file_name, 'w')
+                file_ptr.write('### Frame level recognition: ###\n')
                 file_ptr.write(' '.join(print_pred))
                 file_ptr.close()
 
