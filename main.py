@@ -325,7 +325,7 @@ class Trainer:
                 file_name = os.path.join(result_dir, 'prediction', f'{video}_print.txt')
                 file_ptr = open(file_name, 'w')
                 file_ptr.write('### Frame level recognition: ###\n')
-                file_ptr.write(' '.join(print_pred))
+                file_ptr.write(print_pred)
                 file_ptr.close()
 
         acc, edit, f1s = func_eval(
